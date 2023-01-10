@@ -12,7 +12,7 @@
 .news-platform-app {
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+    overflow-y: auto;
     background-color: #fff;
 }
 </style>

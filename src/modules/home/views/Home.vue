@@ -1,5 +1,5 @@
 <template>
-    <div class="news-platform-home">
+    <div class="news-platform-home" data-cy="news-platform-home">
         <header class="news-platform-main-header">
             <Logo />
         </header>
@@ -14,6 +14,7 @@ import { defineComponent, onMounted, ref } from 'vue';
 import NewsCard from '../../../components/NewsCard.vue';
 import Logo from '../../../components/Logo.vue';
 import NewsRepository from '../../../infrastructure/data/repositories/NewsRepository';
+import { useStore } from '../../../infrastructure/data/store/store'
 
 export default defineComponent({
     components: {
@@ -23,11 +24,13 @@ export default defineComponent({
     setup() {
         const newsRepository = new NewsRepository();
         const news = ref();
+        const store = useStore()
         
 
         onMounted(async () => {
-            news.value = await newsRepository.getnews();
+            news.value = await newsRepository.getNews();
             news.value = news.value.data.articles
+            store.setAllNews(news.value);
         })
 
         return {
